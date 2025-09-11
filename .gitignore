@@ -1,12 +1,37 @@
+# Node modules
 /node_modules
+
+# Laravel Mix / Vite build
+/public/css/*.css
+/public/js/*.js
+/public/mix-manifest.json
 /public/hot
+
+# Storage
 /public/storage
 /storage/*.key
+
+# Vendor
 /vendor
+
+# Environment
 .env
 .env.backup
+
+# PHPUnit
 .phpunit.result.cache
+
+# Homestead
 Homestead.json
 Homestead.yaml
+
+# NPM/Yarn logs
 npm-debug.log
 yarn-error.log
+
+# IDE / OS files (opcional)
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
