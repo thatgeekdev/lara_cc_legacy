@@ -1,72 +1,108 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Laravel 6.20.44 + Livewire 0.7.2 — Clean Code Run code in Laravel Livewire ...
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Este projeto é um exemplo de **CRUD** utilizando **Laravel 6.20.44** com **Livewire 0.7.2**, com foco em **Clean Code**, boas práticas e organização para projetos legados.
 
-## About Laravel
+## Objetivo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Demonstrar como estruturar um projeto Laravel legado (legacy) de forma clara e escalável, aplicando:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Separação de responsabilidades (`Services`, `DTOs`, `Helpers`).
+- Componentes Livewire limpos e reutilizáveis.
+- Validação centralizada e consistente.
+- Soft deletes e controle de dados seguro.
+- Estrutura de pastas organizada.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Estrutura do Projeto (ex:...)
 
-## Learning Laravel
+```
+app/
+  DTOs/               # Objetos de transferência de dados
+  Services/           # Regras de negócio separadas
+  Models/             # Models Eloquent
+  Http/
+    Livewire/
+      Tasks/          # Componentes Livewire
+  Helpers/            # Funções utilitárias
+config/
+resources/
+  views/
+    layouts/
+    tasks.blade.php
+    livewire/tasks/   # Views dos componentes Livewire
+routes/web.php
+database/migrations/
+composer.json         # Autoload de Helpers
+package.json          # Assets (Bootstrap, Laravel Mix)
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Instalação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clonar o projeto ou criar Laravel 6.20.44:
+```bash
+composer create-project laravel/laravel="6.20.44" meu_projeto
+```
 
-## Laravel Sponsors
+2. Instalar Livewire 0.7.2:
+```bash
+composer require livewire/livewire:"0.7.2"
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+3. Publicar configuração do Livewire (se disponível):
+```bash
+php artisan vendor:publish --provider="Livewire\\LivewireServiceProvider" --tag=livewire
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+4. Autoload dos Helpers (`composer.json`):
+```json
+"autoload": {
+    "psr-4": {"App\\": "app/"},
+    "files": ["app/Helpers/helpers.php"]
+}
+```
+```bash
+composer dump-autoload
+```
 
-## Contributing
+5. Instalar assets e compilar:
+```bash
+npm install
+npm run dev
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. Rodar migrations:
+```bash
+php artisan migrate
+```
 
-## Security Vulnerabilities
+7. Rodar servidor local:
+```bash
+php artisan serve
+```
+Acesse: [http://127.0.0.1:8000/tasks](http://127.0.0.1:8000/tasks)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Funcionalidades
 
-## License
+- Listagem de tarefas com busca e paginação.
+- Criação, edição e remoção de tarefas.
+- Validação no frontend e backend.
+- Comunicação entre componentes Livewire via eventos.
+- Soft deletes para segurança de dados.
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Boas Práticas Aplicadas
+
+- **Separa responsabilidades**: Livewire chama Services; lógica de negócio não está no componente.
+- **DTOs (TaskData)**: padroniza dados entre camada de serviço e Livewire.
+- **Helpers**: funções utilitárias isoladas e autoloaded.
+- **Validação centralizada**: no componente de formulário, consistente.
+- **Eventos e mensagens de sessão**: comunicação clara entre componentes.
+- **Estrutura de pastas limpa**: facilita manutenção e escalabilidade.
+
+## Observações
+
+- Compatível com **Bootstrap 4.6.x**, já incluso no template.
+- Livewire 0.7.2 tem diferenças de sintaxe em relação às versões atuais; o projeto segue a sintaxe dessa versão.
+- Pode ser usado como boilerplate para projetos Laravel legados que precisem de Clean Code.
+
+---
+
+Este README serve como guia inicial e referência para boas práticas em **Laravel legacy + Livewire + Bootstrap**, facilitando aprendizado e manutenção de código limpo.
