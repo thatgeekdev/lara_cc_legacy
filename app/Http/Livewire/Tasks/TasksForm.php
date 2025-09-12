@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Livewire\Tasks;
 
 use Livewire\Component;
@@ -7,6 +6,12 @@ use App\DTOs\TaskData;
 use App\Services\TaskService;
 use App\Models\Task;
 
+/**
+ * Formulário de criação e edição de tarefas
+ * - Recebe dados do usuário
+ * - Valida e envia para TaskService
+ * - Emite eventos para atualizar lista
+ */
 class TasksForm extends Component
 {
     public $taskId = null;
@@ -29,7 +34,9 @@ class TasksForm extends Component
         $this->taskService = new TaskService();
     }
 
-
+    /**
+     * Abre o formulário com dados da tarefa ou vazio para nova
+     */
     public function open($id = null)
     {
         $this->resetValidation();
@@ -46,9 +53,11 @@ class TasksForm extends Component
             $this->description = $task->description;
             $this->status = $task->status;
         }
-
     }
 
+    /**
+     * Salva nova tarefa ou atualiza existente
+     */
     public function save()
     {
         $dto = new TaskData([
@@ -57,7 +66,7 @@ class TasksForm extends Component
             'status' => $this->status,
         ]);
 
-        $taskService = app(\App\Services\TaskService::class);
+        $taskService = app(TaskService::class);
 
         if ($this->taskId) {
             $task = Task::findOrFail($this->taskId);
@@ -69,7 +78,7 @@ class TasksForm extends Component
         $this->emit('taskSaved');
         session()->flash('success', 'Tarefa salva.');
     }
-    
+
     public function render()
     {
         return view('livewire.tasks.form');
